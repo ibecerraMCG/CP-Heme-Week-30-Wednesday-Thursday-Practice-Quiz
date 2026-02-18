@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 30 Wednesday & Thursday Practice Quiz</title>
+    <style>
+        /* --- CSS Variables & Themes --- */
+        :root {
+            /* Base Transition */
+            --transition-speed: 0.3s;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* 1. Modern Dark (Default) */
+        [data-theme="dark"] {
+            --bg-body: #1e293b;
+            --bg-card: #334155;
+            --bg-header: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --text-accent: #38bdf8;
+            --border-color: #475569;
+            --highlight-bg: #475569;
+            --button-bg: #38bdf8;
+            --button-text: #0f172a;
+            --button-hover: #0ea5e9;
+            --feedback-success-bg: #064e3b;
+            --feedback-success-border: #059669;
+            --feedback-success-text: #a7f3d0;
+            --feedback-error-bg: #7f1d1d;
+            --feedback-error-border: #dc2626;
+            --feedback-error-text: #fecaca;
+        }
+
+        /* 2. Modern Light */
+        [data-theme="light"] {
+            --bg-body: #f3f4f6;
+            --bg-card: #ffffff;
+            --bg-header: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --text-accent: #2563eb;
+            --border-color: #e5e7eb;
+            --highlight-bg: #f3f4f6;
+            --button-bg: #2563eb;
+            --button-text: #ffffff;
+            --button-hover: #1d4ed8;
+            --feedback-success-bg: #ecfdf5;
+            --feedback-success-border: #34d399;
+            --feedback-success-text: #065f46;
+            --feedback-error-bg: #fef2f2;
+            --feedback-error-border: #f87171;
+            --feedback-error-text: #991b1b;
+        }
+
+        /* 3. Midnight (Pure Black) */
+        [data-theme="midnight"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #e0e0e0;
+            --text-muted: #888888;
+            --text-accent: #90caf9;
+            --border-color: #333333;
+            --highlight-bg: #1a1a1a;
+            --button-bg: #90caf9;
+            --button-text: #000000;
+            --button-hover: #42a5f5;
+            --feedback-success-bg: #051b11;
+            --feedback-success-border: #0f5132;
+            --feedback-success-text: #75b798;
+            --feedback-error-bg: #2c0b0e;
+            --feedback-error-border: #842029;
+            --feedback-error-text: #ea868f;
+        }
+
+        /* 4. Legacy Dark (Original) */
+        [data-theme="legacy-dark"] {
+            --bg-body: #2d343e;
+            --bg-card: #3c424f;
+            --bg-header: #3c424f;
+            --text-main: #e8e6e3;
+            --text-muted: #b0c4de;
+            --text-accent: #8ab4f8;
+            --border-color: #555;
+            --highlight-bg: #454c5a;
+            --button-bg: #8ab4f8;
+            --button-text: #202124;
+            --button-hover: #a3c5f9;
+            --feedback-success-bg: #344e41;
+            --feedback-success-border: #52b788;
+            --feedback-success-text: #c7f9cc;
+            --feedback-error-bg: #5e2129;
+            --feedback-error-border: #a4133c;
+            --feedback-error-text: #f8d7da;
+        }
+
+        /* 5. Sepia (Reading Mode) */
+        [data-theme="sepia"] {
+            --bg-body: #f4ecd8;
+            --bg-card: #fdf6e3;
+            --bg-header: #e4d5b7;
+            --text-main: #433422;
+            --text-muted: #7c6f5a;
+            --text-accent: #a05a2c;
+            --border-color: #d3c4a5;
+            --highlight-bg: #ebe1c9;
+            --button-bg: #a05a2c;
+            --button-text: #fdf6e3;
+            --button-hover: #864822;
+            --feedback-success-bg: #e6f4ea;
+            --feedback-success-border: #8ab893;
+            --feedback-success-text: #2e4c35;
+            --feedback-error-bg: #f9e3e3;
+            --feedback-error-border: #d48f8f;
+            --feedback-error-text: #5c2b2b;
+        }
+
+        /* 6. High Contrast */
+        [data-theme="contrast"] {
+            --bg-body: #000000;
+            --bg-card: #000000;
+            --bg-header: #000000;
+            --text-main: #ffffff;
+            --text-muted: #dddddd;
+            --text-accent: #ffff00;
+            --border-color: #ffffff;
+            --highlight-bg: #333333;
+            --button-bg: #ffff00;
+            --button-text: #000000;
+            --button-hover: #e6e600;
+            --feedback-success-bg: #000000;
+            --feedback-success-border: #00ff00;
+            --feedback-success-text: #00ff00;
+            --feedback-error-bg: #000000;
+            --feedback-error-border: #ff0000;
+            --feedback-error-text: #ff0000;
+        }
+
+        /* --- Global Reset & Layout --- */
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: var(--font-main);
+            margin: 0;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
+            line-height: 1.6;
+        }
+
+        /* --- Header --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Default to Sticky */
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        /* Class to remove sticky behavior */
+        header.unpinned {
+            position: relative;
+            box-shadow: none;
+        }
+
+        header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            color: var(--text-accent);
+        }
+
+        .controls-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .pin-btn {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+        }
+
+        .pin-btn:hover {
+            background-color: var(--highlight-bg);
+        }
+
+        .pin-btn.pin-active {
+            color: var(--text-accent);
+            border-color: var(--text-accent);
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        select#theme-select {
+            padding: 6px 12px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            cursor: pointer;
+            font-family: inherit;
+        }
+
+        /* --- Main Content --- */
+        .container {
+            max-width: 850px;
+            margin: 2rem auto;
+            padding: 0 1rem 4rem 1rem;
+        }
+
+        .section-header {
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--text-accent);
+            color: var(--text-accent);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        /* --- Question Card --- */
+        .question-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+
+        .lo-box {
+            background-color: var(--highlight-bg);
+            border-left: 4px solid var(--text-accent);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Options --- */
+        .options-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .option-label {
+            display: flex;
+            align-items: flex-start;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-label:hover {
+            background-color: var(--highlight-bg);
+            border-color: var(--text-muted);
+        }
+
+        .option-label input {
+            margin-top: 0.3rem;
+            margin-right: 1rem;
+            accent-color: var(--text-accent);
+            transform: scale(1.2);
+        }
+
+        /* --- Tables --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--highlight-bg);
+            font-weight: 600;
+        }
+
+        /* --- Buttons --- */
+        .btn-check {
+            margin-top: 1.5rem;
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            font-size: 1rem;
+        }
+
+        .btn-check:hover {
+            opacity: 0.9;
+        }
+
+        /* --- Feedback Area --- */
+        .feedback {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            border-radius: 8px;
+            display: none; /* Hidden by default */
+            border: 1px solid transparent;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .feedback.correct {
+            background-color: var(--feedback-success-bg);
+            border-color: var(--feedback-success-border);
+            color: var(--feedback-success-text);
+        }
+
+        .feedback.incorrect {
+            background-color: var(--feedback-error-bg);
+            border-color: var(--feedback-error-border);
+            color: var(--feedback-error-text);
+        }
+
+        .feedback-header {
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .rationale {
+            margin-top: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .source {
+            display: block;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-style: italic;
+            border-top: 1px dashed currentColor;
+            padding-top: 0.5rem;
+        }
+
+        /* --- Mobile Tweaks --- */
+        @media (max-width: 600px) {
+            header { padding: 1rem; flex-direction: column; gap: 10px; align-items: flex-start; }
+            .controls-wrapper { width: 100%; justify-content: space-between; }
+            .question-card { padding: 1.5rem; }
+            header h1 { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="main-header">
+        <h1>Week 30 Wednesday & Thursday Practice Quiz</h1>
+        <div class="controls-wrapper">
+            <!-- Pin Button -->
+            <button class="pin-btn pin-active" id="pin-btn" onclick="toggleHeader()" title="Pin/Unpin Header">
+                📍
+            </button>
+            
+            <div class="theme-control">
+                <label for="theme-select">Theme:</label>
+                <select id="theme-select" onchange="changeTheme(this.value)">
+                    <option value="dark">Modern Dark</option>
+                    <option value="midnight">Midnight</option>
+                    <option value="light">Modern Light</option>
+                    <option value="legacy-dark">Legacy Dark</option>
+                    <option value="sepia">Sepia</option>
+                    <option value="contrast">High Contrast</option>
+                </select>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="quiz-root">
+        <!-- Content injected via JS -->
+    </div>
+
+    <script>
+        // --- Data ---
+        const quizData = [
+            // --- Section 1: PFTs, ABGs, and Diagnosing Gas Exchange ---
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO1: Interpret Pulmonary Function Tests (PFT’s)",
+                fullLO: "LO1: Interpret Pulmonary Function Tests (PFT’s)",
+                question: "A 45-year-old male presents with chronic dyspnea. Pulmonary function testing (PFT) reveals an FEV1/FVC ratio of 0.60 and an FEV1 of 65% predicted. Following the administration of a bronchodilator, the FEV1 increases by 5% (100 mL). Which of the following is the most accurate interpretation of these findings?",
+                options: {
+                    A: "Normal pulmonary function",
+                    B: "Obstructive defect that is not fully reversible",
+                    C: "Obstructive defect with significant reversibility",
+                    D: "Restrictive defect",
+                    E: "Upper airway obstruction"
+                },
+                correctAnswer: "B",
+                rationale: "An FEV1/FVC ratio < 0.7 indicates an obstructive defect. A positive bronchodilator response requires a 12% AND 0.2 L increase in FEV1 or FVC. This patient showed only a 5% increase, indicating the obstruction is not fully reversible (characteristic of COPD).",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slides 9 & 18: \"Patient has obstructive defect: FEV-1/FVC < 0.7... Look for a positive bronchodilator response: 12% and 0.2 L increase in either FEV1 or FVC\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO1: Interpret Pulmonary Function Tests (PFT’s)",
+                fullLO: "LO1: Interpret Pulmonary Function Tests (PFT’s)",
+                question: "A 60-year-old female undergoes spirometry. The flow-volume loop demonstrates a \"scooped out\" appearance on the expiratory limb. The FEV1/FVC ratio is 0.55. Which of the following is most consistent with this spirogram pattern?",
+                options: {
+                    A: "Normal function",
+                    B: "Restrictive lung disease (e.g. kyphoscoliosis)",
+                    C: "Lower airway obstruction (e.g. laryngeal edema)",
+                    D: "Obstructive lung disease (e.g. pulmonary emphysema)",
+                    E: "Fixed major airway obstruction (e.g. vocal cord dysfunction)"
+                },
+                correctAnswer: "D",
+                rationale: "A \"scooped out\" expiratory limb on a flow-volume loop is characteristic of obstructive disease, such as emphysema.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 13: \"Obstructive (e.g. asthma) ... Severe obstructive disease (e.g. emphysema) before (shaded curve)...\" [Image showing scooped out curve for B and C]"
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO2: Contrast obstruction and restriction",
+                fullLO: "LO2: Contrast obstruction and restriction",
+                question: "A 55-year-old male presents with progressive shortness of breath. Pulmonary function testing reveals a normal FEV1/FVC ratio (0.85) but a reduced Total Lung Capacity (TLC) and reduced Forced Vital Capacity (FVC). The flow-volume loop appears narrow but tall (\"witch's hat\" appearance). These findings are most consistent with:",
+                options: {
+                    A: "Asthma",
+                    B: "Chronic bronchitis",
+                    C: "Emphysema",
+                    D: "Pulmonary fibrosis",
+                    E: "Tracheal stenosis"
+                },
+                correctAnswer: "D",
+                rationale: "Restrictive defects are characterized by a normal FEV1/FVC ratio (>0.7), decreased FVC, and decreased lung volumes (TLC). This pattern is seen in interstitial diseases like pulmonary fibrosis.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 9: \"Patient has restrictive defect... FEV-1/FVC > 0.7 ... decreased FVC and decreased lung volumes\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO2: Contrast obstruction and restriction",
+                fullLO: "LO2: Contrast obstruction and restriction",
+                question: "A medical student is reviewing flow-volume loops. One loop shows a flattening of both the inspiratory and expiratory limbs, creating a box-like shape. This pattern suggests a fixed obstruction located in which anatomical region?",
+                options: {
+                    A: "Alveoli",
+                    B: "Bronchioles",
+                    C: "Major airway (e.g., trachea/larynx)",
+                    D: "Peripheral airways",
+                    E: "Pleural space"
+                },
+                correctAnswer: "C",
+                rationale: "A fixed major airway obstruction (e.g., laryngeal obstruction or tracheal stenosis) results in flattening of both inspiratory and expiratory loops.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slides 13 & 15: \"Fixed major airway obstruction (e.g. laryngeal obstruction)... Fixed upper airway obstruction... Tracheal stenosis\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO3: Discuss ventilation, oxygenation, hypoxemia, hypoxia and FiO2",
+                fullLO: "LO3: Discuss ventilation, oxygenation, hypoxemia, hypoxia and FiO2",
+                question: "A 30-year-old male is brought to the emergency department with suspected carbon monoxide poisoning. He has a normal PaO2 on arterial blood gas but signs of tissue hypoxia. This type of hypoxia is best classified as:",
+                options: {
+                    A: "Anemic hypoxia",
+                    B: "Circulatory hypoxia",
+                    C: "Histologic hypoxia",
+                    D: "Hypoxic hypoxia",
+                    E: "Stagnant hypoxia"
+                },
+                correctAnswer: "A",
+                rationale: "Anemic hypoxia is present when hemoglobin concentration is lower than normal or unable to transport O2, such as in carbon monoxide poisoning.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 30: \"Anemic hypoxia is present when Hb concentration is lower than normal or unable to transport O2 – sickle cell, CO poisoning, and metHb\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO3: Discuss ventilation, oxygenation, hypoxemia, hypoxia and FiO2",
+                fullLO: "LO3: Discuss ventilation, oxygenation, hypoxemia, hypoxia and FiO2",
+                question: "A patient is placed on a 50% oxygen mask. What is the fraction of inspired oxygen (FiO2) for this patient?",
+                options: {
+                    A: "0.21",
+                    B: "0.28",
+                    C: "0.40",
+                    D: "0.50",
+                    E: "1.00"
+                },
+                correctAnswer: "D",
+                rationale: "FiO2 is the fraction or percentage of oxygen in the air. 50% oxygen corresponds to an FiO2 of 0.5.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 31: \"If we place a patient on 50% oxygen mask, his FiO2 is 0.5\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO4: Interpret arterial blood gas results",
+                fullLO: "LO4: Interpret arterial blood gas results",
+                question: "A 22-year-old female presents with anxiety and tachypnea. An arterial blood gas (ABG) is obtained on room air. The results are pH 7.52, pCO2 28 mmHg, pO2 105 mmHg, HCO3 24 mEq/L. These results indicate:",
+                options: {
+                    A: "Metabolic acidosis",
+                    B: "Metabolic alkalosis",
+                    C: "Normal acid-base status",
+                    D: "Respiratory acidosis",
+                    E: "Respiratory alkalosis"
+                },
+                correctAnswer: "E",
+                rationale: "The pH is alkalotic (>7.45) and the pCO2 is low (<35 mmHg), indicating respiratory alkalosis due to hyperventilation.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 26: \"Hyperventilation is pCO2 < 35\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO4: Interpret arterial blood gas results",
+                fullLO: "LO4: Interpret arterial blood gas results",
+                question: "A 60-year-old male with a history of severe COPD presents with drowsiness. His ABG reveals pH 7.25, pCO2 65 mmHg, pO2 50 mmHg, HCO3 28 mEq/L. The elevated pCO2 indicates:",
+                options: {
+                    A: "Adequate ventilation",
+                    B: "Hyperventilation",
+                    C: "Hypoventilation",
+                    D: "Increased diffusion capacity",
+                    E: "Metabolic compensation"
+                },
+                correctAnswer: "C",
+                rationale: "pCO2 is a measure of the adequacy of ventilation. A pCO2 > 45 mmHg defines hypoventilation.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 26: \"Hypoventilation is pCO2 > 45\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO5: Interpret oximetry results",
+                fullLO: "LO5: Interpret oximetry results",
+                question: "A patient undergoes a 6-minute walk test. At rest, the pulse oximetry shows an O2 saturation of 97%. During exercise, the saturation drops to 88%. This finding is indicative of:",
+                options: {
+                    A: "Improved gas exchange with exercise",
+                    B: "Normal physiologic response to exercise",
+                    C: "Abnormal desaturation with exercise",
+                    D: "Technical error in the oximeter",
+                    E: "Hyperventilation"
+                },
+                correctAnswer: "C",
+                rationale: "Normal resting O2 saturation is 96-97%, and it should not fall with exercise. A drop indicates an abnormality.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 46: \"Normal resting O2 sat is 96-97%... O2 sat should not fall with exercise\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO5: Interpret oximetry results",
+                fullLO: "LO5: Interpret oximetry results",
+                question: "A patient has a resting O2 saturation of 97% measured by pulse oximetry. This value is considered:",
+                options: {
+                    A: "Critical hypoxemia",
+                    B: "Mildly low",
+                    C: "Normal",
+                    D: "Supranormal",
+                    E: "Unreliable"
+                },
+                correctAnswer: "C",
+                rationale: "The lecture states that a normal resting O2 saturation is 96-97%.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 46: \"Normal resting O2 sat is 96-97%\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO6: Given arterial blood gas results, determine a possible diagnosis.",
+                fullLO: "LO6: Given arterial blood gas results, determine a possible diagnosis.",
+                question: "A 40-year-old alcoholic is brought to the ER with fever and chills. A chest X-ray confirms pneumonia. His ABG on room air shows: pH 7.45, PaO2 42, PaCO2 34. After being placed on 100% oxygen, his PaO2 only rises to 56. What is the primary mechanism of his hypoxemia?",
+                options: {
+                    A: "Anemia",
+                    B: "Diffusion defect",
+                    C: "Hypoventilation",
+                    D: "Shunt",
+                    E: "V/Q Mismatch"
+                },
+                correctAnswer: "D",
+                rationale: "The patient has severe hypoxemia that does not correct significantly with 100% oxygen. This lack of response to 100% oxygen is characteristic of a shunt (e.g., alveoli filled with fluid in pneumonia).",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 55 & 56 diagram: \"40-Year-Old Alcoholic... 100% O2 56... What is his problem? A. Shunt\""
+            },
+            {
+                section: "PFTs, ABGs, and Diagnosing Gas Exchange",
+                maskedLO: "LO6: Given arterial blood gas results, determine a possible diagnosis.",
+                fullLO: "LO6: Given arterial blood gas results, determine a possible diagnosis.",
+                question: "A 56-year-old man is found somnolent in the recovery room. His ABG on room air reveals: pH 7.14, PCO2 85 mmHg, PO2 35 mmHg, and a normal A-a gradient (Calculated A-a DO2 = 9 mmHg). What is the primary cause of his hypoxemia?",
+                options: {
+                    A: "Anemia",
+                    B: "Diffusion defect",
+                    C: "Hypoventilation",
+                    D: "Shunt",
+                    E: "V/Q Mismatch"
+                },
+                correctAnswer: "C",
+                rationale: "The patient has a very high PCO2 (85 mmHg), respiratory acidosis (pH 7.14), and a normal A-a gradient. Hypoxemia with a normal A-a gradient and hypercapnia indicates hypoventilation.",
+                source: "PFT_ABG_and_Gas_Exchange_PDF.pdf, Slide 57: \"56-year-old man found to be somnolent... pH 7.14, PCO2 85... A-a DO2 9... Problem? A. Hypoventilation\""
+            },
+
+            // --- Section 2: Clinical Approach to COPD ---
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO1: Recognize the clinical symptoms and signs of COPD",
+                fullLO: "LO1: Recognize the clinical symptoms and signs of COPD",
+                question: "A 65-year-old male smoker presents for evaluation. Physical examination reveals a barrel chest, use of accessory muscles for respiration, and pursed-lip breathing. Percussion of the chest demonstrates hyperresonance. These findings are most consistent with:",
+                options: {
+                    A: "Congestive Heart Failure",
+                    B: "COPD",
+                    C: "Lung Cancer",
+                    D: "Pleural Effusion",
+                    E: "Pulmonary Fibrosis"
+                },
+                correctAnswer: "B",
+                rationale: "Clinical signs of COPD include hyperresonance to percussion, barrel chest, use of accessory muscles, and pursed-lip breathing.",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 19: \"Physical Exam... Hyperresonance to percussion... Barrel chest... Use of accessory muscles... Pursed lip breathing\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO1: Recognize the clinical symptoms and signs of COPD",
+                fullLO: "LO1: Recognize the clinical symptoms and signs of COPD",
+                question: "A patient with COPD reports that they stop for breath after walking about 100 meters or after a few minutes on level ground. According to the Modified MRC Dyspnea Scale, which grade describes this patient's symptoms?<br><br><table><thead><tr><th>Grade</th><th>Description</th></tr></thead><tbody><tr><td>mMRC Grade 0</td><td>I only get breathless with strenuous exercise.</td></tr><tr><td>mMRC Grade 1</td><td>I get short of breath when hurrying on the level or walking up a slight hill.</td></tr><tr><td>mMRC Grade 2</td><td>\"I walk slower than people of the same age on the level because of breathlessness, or I have to stop for breath when walking on my own pace on the level.\"</td></tr><tr><td>mMRC Grade 3</td><td>I stop for breath after walking about 100 meters or after a few minutes on the level.</td></tr><tr><td>mMRC Grade 4</td><td>I am too breathless to leave the house or I am breathless when dressing or undressing.</td></tr></tbody></table>",
+                options: {
+                    A: "Grade 0",
+                    B: "Grade 1",
+                    C: "Grade 2",
+                    D: "Grade 3",
+                    E: "Grade 4"
+                },
+                correctAnswer: "D",
+                rationale: "Grade 3 on the mMRC scale is defined as \"I stop for breath after walking about 100 meters or after a few minutes on the level.\"",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 35: \"mMRC Grade 3... I stop for breath after walking about 100 meters or after a few minutes on the level\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO2: Understand the causes and mechanism of obstructive lung disease",
+                fullLO: "LO2: Understand the causes and mechanism of obstructive lung disease",
+                question: "A 50-year-old woman from a low-income country presents with chronic cough and dyspnea. She has never smoked. She reports cooking over an open fire with wood and animal dung for many years. This exposure is a significant risk factor for COPD due to:",
+                options: {
+                    A: "Genetic susceptibility",
+                    B: "Household air pollution",
+                    C: "Occupational chemical fumes",
+                    D: "Passive tobacco smoke",
+                    E: "Viral infections"
+                },
+                correctAnswer: "B",
+                rationale: "Wood, animal dung, and crop residues burned in open fires lead to high levels of household air pollution, which is a leading risk factor for COPD in never smokers in low- and middle-income countries (LMICs).",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 8: \"Wood, animal dung, crop residues... may lead to very high levels of household air pollution... associated with an increased risk of developing COPD in LMICs\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO2: Understand the causes and mechanism of obstructive lung disease",
+                fullLO: "LO2: Understand the causes and mechanism of obstructive lung disease",
+                question: "In the pathophysiology of COPD, airway obstruction is caused by several mechanisms. Which of the following is considered an \"extramural\" cause of obstruction resulting in decreased lung elastic recoil?",
+                options: {
+                    A: "Bronchial wall edema",
+                    B: "Inflammatory cell infiltration",
+                    C: "Loss of alveolar attachments",
+                    D: "Mucous gland hypertrophy",
+                    E: "Mucous plugging"
+                },
+                correctAnswer: "C",
+                rationale: "Extramural causes of obstruction in COPD include the loss of alveolar attachments and decreased lung elastic recoil.",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 13: \"Extramural causes: loss of alveolar attachments, decreased lung elastic recoil\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO3: Be familiar with risk stratification of patients with COPD and understand their co-morbidities",
+                fullLO: "LO3: Be familiar with risk stratification of patients with COPD and understand their co-morbidities",
+                question: "A patient with COPD has an FEV1 of 60% predicted. They have had 2 moderate exacerbations in the past year. Their CAT score is 15. According to the GOLD ABE Assessment Tool, this patient is classified into which group?<br><br><table><thead><tr><th>Assessment Group</th><th>Exacerbation History (Per Year)</th><th>Symptoms (mMRC or CAT)</th></tr></thead><tbody><tr><td>Group E</td><td>≥2 moderate exacerbations OR ≥1 leading to hospitalization</td><td>Any mMRC or CAT score</td></tr><tr><td>Group A</td><td>0 or 1 moderate exacerbations (not leading to hospitalization)</td><td>mMRC 0-1 AND CAT < 10</td></tr><tr><td>Group B</td><td>0 or 1 moderate exacerbations (not leading to hospitalization)</td><td>mMRC ≥2 AND CAT ≥10</td></tr></tbody></table>",
+                options: {
+                    A: "Group A",
+                    B: "Group B",
+                    C: "Group C",
+                    D: "Group D",
+                    E: "Group E"
+                },
+                correctAnswer: "E",
+                rationale: "Patients with ≥ 2 moderate exacerbations or ≥ 1 hospitalization are classified as Group E, regardless of their symptom score.",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 36: \"GOLD ABE Assessment Tool... ≥ 2 moderate exacerbations or ≥ 1 leading to hospitalization... E\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO3: Be familiar with risk stratification of patients with COPD and understand their co-morbidities",
+                fullLO: "LO3: Be familiar with risk stratification of patients with COPD and understand their co-morbidities",
+                question: "A 65-year-old male with COPD presents for a follow-up. The physician reviews his chart to screen for common co-morbidities associated with COPD. Which of the following conditions is widely recognized as a common co-morbidity and a major determinant of quality of life in COPD patients?",
+                options: {
+                    A: "Crohn's disease",
+                    B: "Hypothyroidism",
+                    C: "Multiple Sclerosis",
+                    D: "Osteoporosis",
+                    E: "Rheumatoid Arthritis"
+                },
+                correctAnswer: "D",
+                rationale: "Common co-morbidities in COPD include cardiovascular disease, metabolic syndrome, osteoporosis, lung cancer, skeletal muscle dysfunction, and pulmonary embolism.",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 48: \"Identify and treat co morbidities (cardiovascular, metabolic syndrome, osteoporosis, lung cancer...)\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO4: Know the approach to pharmacologic and non –pharmacologic treatment of COPD",
+                fullLO: "LO4: Know the approach to pharmacologic and non –pharmacologic treatment of COPD",
+                question: "A patient with COPD is classified as Group E due to frequent exacerbations. Which of the following is the recommended initial pharmacological treatment for this patient group?",
+                options: {
+                    A: "A single short-acting bronchodilator",
+                    B: "Inhaled corticosteroid (ICS) monotherapy",
+                    C: "LABA + LAMA",
+                    D: "LABA monotherapy",
+                    E: "Theophylline"
+                },
+                correctAnswer: "C",
+                rationale: "For Group E patients (≥ 2 moderate exacerbations or ≥ 1 hospitalization), the recommended initial treatment is LABA + LAMA.",
+                source: "Clinical_Aspects_of_COPD_PDF.pdf, Slide 45: \"GROUP E... LABA + LAMA*\""
+            },
+            {
+                section: "Clinical Approach to COPD",
+                maskedLO: "LO4: Know the approach to pharmacologic and non –pharmacologic treatment of COPD",
+                fullLO: "LO4: Know the approach to pharmacologic and non –pharmacologic treatment of COPD",
+                question: "A 62-year-old patient with stable COPD has severe resting hypoxemia (PaO2 52 mmHg). Which non-pharmacologic intervention has been shown to improve survival in this population? (Note: answer found in COPD treatment lecture)",
+                options: {
+                    A: "Annual influenza vaccination",
+                    B: "Long-term oxygen therapy (>15 hrs/day)",
+                    C: "Mucolytics",
+                    D: "Pulmonary rehabilitation",
+                    E: "Surgical lung volume reduction"
+                },
+                correctAnswer: "B",
+                rationale: "Long-term oxygen therapy improves survival in hypoxemic patients (PaO2 < 55 mmHg).",
+                source: "COPD_Treatment_PDF, Slide 15: \"LTOT: Selection of Patients... Improved survival with long-term (>15 hrs/day)\""
+            },
+
+            // --- Section 3: Pathology of Obstructive Lung Disease ---
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO1: Compare and contrast [emphysema types] in regard to etiology, pathogenesis and morphologic features",
+                fullLO: "LO1: Compare and contrast centriacinar and panacinar emphysema in regard to etiology, pathogenesis and morphologic features",
+                question: "A 60-year-old male heavy smoker dies of respiratory failure. Autopsy of the lungs reveals emphysematous changes primarily involving the upper lobes. Microscopically, the proximal parts of the acini (respiratory bronchioles) are destroyed, while the distal alveoli are relatively spared. This pattern is consistent with:",
+                options: {
+                    A: "Centriacinar emphysema",
+                    B: "Distal acinar emphysema",
+                    C: "Irregular emphysema",
+                    D: "Panacinar emphysema",
+                    E: "Paraseptal emphysema"
+                },
+                correctAnswer: "A",
+                rationale: "Centriacinar emphysema involves the central acinus (respiratory bronchioles), has an upper zone predominance, and is strongly associated with smoking.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 38: \"Centriacinar... Central acinar involvement... Upper zone predominance... Smoking association\""
+            },
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO1: Compare and contrast [emphysema types] in regard to etiology, pathogenesis and morphologic features",
+                fullLO: "LO1: Compare and contrast centriacinar and panacinar emphysema in regard to etiology, pathogenesis and morphologic features",
+                question: "A 35-year-old non-smoker presents with severe dyspnea and is found to have emphysema affecting the lower lobes of the lungs. Genetic testing reveals a PiZZ genotype. The morphology of the emphysema in this patient typically involves the entire acinus. This type of emphysema is:",
+                options: {
+                    A: "Bullous emphysema",
+                    B: "Centriacinar emphysema",
+                    C: "Irregular emphysema",
+                    D: "Panacinar emphysema",
+                    E: "Paraseptal emphysema"
+                },
+                correctAnswer: "D",
+                rationale: "Panacinar emphysema involves the total acinus, has a lower zone predominance, and is associated with alpha-1 antitrypsin deficiency.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 38: \"Panacinar... Total acinar involvement... Lower zone predominance... a1-antitrypsin deficiency\""
+            },
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO2: Describe the pathogenesis and morphologic features of chronic bronchitis and bronchiolitis.",
+                fullLO: "LO2: Describe the pathogenesis and morphologic features of chronic bronchitis and bronchiolitis.",
+                question: "A 55-year-old man has a history of smoking and a chronic productive cough for the last 5 years. A biopsy of the large airways would most likely reveal which of the following morphologic changes characteristic of chronic bronchitis?",
+                options: {
+                    A: "Destruction of alveolar walls",
+                    B: "Granulomatous inflammation",
+                    C: "Hyaline membranes",
+                    D: "Mucous gland hypertrophy/hyperplasia",
+                    E: "Necrotizing vasculitis"
+                },
+                correctAnswer: "D",
+                rationale: "Chronic bronchitis is characterized morphologically by mucous gland hypertrophy and hyperplasia in the large airways (trachea, bronchi) and goblet cell hyperplasia.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 44: \"Chronic Bronchitis - Morphologic Features - ... Submucosal gland hypertrophy... Goblet cell hyperplasia\""
+            },
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO2: Describe the pathogenesis and morphologic features of chronic bronchitis and bronchiolitis.",
+                fullLO: "LO2: Describe the pathogenesis and morphologic features of chronic bronchitis and bronchiolitis.",
+                question: "In a patient with chronic bronchitis, airflow limitation can also occur in the small airways (bronchiolitis). Which of the following histologic features is characteristic of chronic bronchiolitis?",
+                options: {
+                    A: "Alveolar septal destruction",
+                    B: "Bronchiolar wall thickening due to inflammation and fibrosis",
+                    C: "Cartilage destruction",
+                    D: "Dilation of the bronchioles",
+                    E: "Formation of bullae"
+                },
+                correctAnswer: "B",
+                rationale: "Chronic bronchiolitis (\"small airway disease\") involves inflammation, fibrosis, and obliteration of bronchioles, leading to wall thickening and luminal narrowing.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 49: \"Chronic Bronchiolitis... Bronchiolar wall thickening due to inflammation and/or fibrosis... Luminal narrowing\""
+            },
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO3: Compare and contrast atopic and nonatopic asthma in regard to etiology, pathogenesis and morphologic features.",
+                fullLO: "LO3: Compare and contrast atopic and nonatopic asthma in regard to etiology, pathogenesis and morphologic features.",
+                question: "A 10-year-old boy with a history of eczema and allergic rhinitis presents with wheezing. His asthma is mediated by a Type I hypersensitivity reaction involving IgE. Which of the following cells plays a central pathogenic role in this type of asthma by secreting cytokines like IL-4, IL-5, and IL-13?",
+                options: {
+                    A: "B lymphocytes",
+                    B: "Macrophages",
+                    C: "Neutrophils",
+                    D: "TH1 Lymphocytes",
+                    E: "TH2 Lymphocytes"
+                },
+                correctAnswer: "E",
+                rationale: "TH2 lymphocytes secrete cytokines (IL-4, IL-5, IL-13) that have a central pathogenic role in atopic asthma, stimulating IgE production and attracting eosinophils.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 59: \"TH2 Lymphocyte... Cytokine secretion has central pathogenic role in atopic asthma\""
+            },
+            {
+                section: "Pathology of Obstructive Lung Disease",
+                maskedLO: "LO3: Compare and contrast atopic and nonatopic asthma in regard to etiology, pathogenesis and morphologic features.",
+                fullLO: "LO3: Compare and contrast atopic and nonatopic asthma in regard to etiology, pathogenesis and morphologic features.",
+                question: "A 45-year-old woman develops asthma after a severe viral respiratory infection. She has no family history of asthma and skin tests for common allergens are negative. This form of asthma is best classified as:",
+                options: {
+                    A: "Atopic",
+                    B: "Drug-induced",
+                    C: "Extrinsic",
+                    D: "Nonatopic",
+                    E: "Occupational"
+                },
+                correctAnswer: "D",
+                rationale: "Nonatopic (\"Intrinsic\") asthma involves mechanisms other than Type I IgE mediated reactions, such as viral infections, and is not associated with allergic sensitization.",
+                source: "Pathology_of_Obstructive_Pulmonary_Disease_PDF.pdf, Slide 58: \"Nonatopic 'Intrinsic'... Mechanisms other than Type I... Viral infections\""
+            },
+
+            // --- Section 4: COPD Treatment ---
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO1: Describe the mechanism of action of COPD treatments",
+                fullLO: "LO1: Describe the mechanism of action of COPD treatments",
+                question: "A patient with COPD is prescribed Roflumilast to reduce the risk of exacerbations. This medication exerts its anti-inflammatory effect by selectively inhibiting which of the following enzymes?",
+                options: {
+                    A: "Adenylyl cyclase",
+                    B: "Histone deacetylase",
+                    C: "Phosphodiesterase type 3 (PDE-3)",
+                    D: "Phosphodiesterase type 4 (PDE-4)",
+                    E: "Phospholipase A2"
+                },
+                correctAnswer: "D",
+                rationale: "Roflumilast is a selective inhibitor of Phosphodiesterase type 4 (PDE-4), which increases cAMP levels and reduces inflammation.",
+                source: "COPD_Treatment_PDF.pdf, Slide 10: \"Phosphodiesterase type 4 (PDE-4) inhibitors... Roflumilast... Selectively inhibits PDE-4\""
+            },
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO1: Describe the mechanism of action of COPD treatments",
+                fullLO: "LO1: Describe the mechanism of action of COPD treatments",
+                question: "A patient with COPD is prescribed a Long-Acting Muscarinic Antagonist (LAMA). The therapeutic effect of this drug is achieved by blocking M3 receptors on bronchial smooth muscle, which results in:",
+                options: {
+                    A: "Decreased cAMP levels",
+                    B: "Increased mucus secretions",
+                    C: "Inhibition of histamine release",
+                    D: "Prevention of leukotriene synthesis",
+                    E: "Reduction of bronchoconstriction (Relaxation)"
+                },
+                correctAnswer: "E",
+                rationale: "Muscarinic antagonists block M3 receptors, preventing constriction and thus causing relaxation (bronchodilation) and reduced mucus secretion.",
+                source: "COPD_Treatment_PDF.pdf, Slides 5 & Asthma_PDF slide 32: \"Short-acting Muscarinic Antagonists (SAMA)... Block M3 receptors on bronchial smooth muscle... [LAMA slide from COPD treatment lecture] Tiotropium... [Medication mechanism slide from asthma lecture] Antagonist -> relaxation\""
+            },
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO2: Describe signaling pathways of different classes of bronchodilators (NOTE answers in asthma lecture)",
+                fullLO: "LO2: Describe signaling pathways of different classes of bronchodilators",
+                question: "Beta-2 agonists are commonly used in the treatment of COPD. These drugs induce bronchodilation by stimulating beta-2 receptors, which activates the cAMP/PKA pathway. This cascade ultimately results in:",
+                options: {
+                    A: "Increased intracellular Calcium",
+                    B: "Increased Myosin Light Chain Kinase (MLCK) activity",
+                    C: "Inhibition of Phosphodiesterase-4",
+                    D: "Decreased intracellular Calcium and decreased MLCK activity",
+                    E: "Stimulation of M3 receptors"
+                },
+                correctAnswer: "D",
+                rationale: "Beta-2 agonists activate the cAMP/PKA pathway, which leads to decreased intracellular Calcium and decreased MLCK activity, causing relaxation.",
+                source: "Asthma_PDF.pdf, Slide 32: \"beta2 adrenergic agonists (cAMP/PKA -> decreased Ca2+, decreased MLCK activity)\""
+            },
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO2: Describe signaling pathways of different classes of bronchodilators (NOTE answers in asthma lecture)",
+                fullLO: "LO2: Describe signaling pathways of different classes of bronchodilators",
+                question: "Muscarinic antagonists like Ipratropium achieve bronchodilation by blocking the cholinergic pathway. Specifically, they inhibit the pathway that normally involves:",
+                options: {
+                    A: "Acetylcholine (ACh) stimulating M3 receptors to increase IP3 and Calcium",
+                    B: "Adenosine binding to A2B receptors",
+                    C: "Histamine binding to H1 receptors",
+                    D: "Leukotrienes binding to CysLT1 receptors",
+                    E: "Norepinephrine stimulating Alpha-1 receptors"
+                },
+                correctAnswer: "A",
+                rationale: "Muscarinic antagonists block the ACh–M3–IP3–Ca2+ pathway which normally causes constriction.",
+                source: "Asthma_PDF.pdf, Slide 32: \"Muscarinic antagonists (blocks ACh–M3–IP3–Ca2+)\""
+            },
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO3: Indicate the most appropriate treatment based on a clinical vignette",
+                fullLO: "LO3: Indicate the most appropriate treatment based on a clinical vignette",
+                question: "A patient with COPD is classified as Group B (highly symptomatic, low exacerbation risk). According to the GOLD guidelines, the recommended first-choice pharmacologic treatment is:",
+                options: {
+                    A: "A short-acting bronchodilator only",
+                    B: "Inhaled Corticosteroid (ICS) + LABA",
+                    C: "Long-acting muscarinic antagonist (LAMA) + Long-acting Beta-2 Agonist (LABA)",
+                    D: "Oral Theophylline",
+                    E: "Roflumilast"
+                },
+                correctAnswer: "C",
+                rationale: "For Patient Group B (Many symptoms, No/low hospitalizations), the recommended first choice is LAMA + LABA.",
+                source: "COPD_Treatment_PDF.pdf, Slide 4: \"Group B... Recommended First Choice... Long-acting muscarinic antagonist (LAMA) + Long-acting B2 Agonist (LABA)\""
+            },
+            {
+                section: "COPD Treatment",
+                maskedLO: "LO3: Indicate the most appropriate treatment based on a clinical vignette",
+                fullLO: "LO3: Indicate the most appropriate treatment based on a clinical vignette",
+                question: "A 65-year-old male with severe COPD (Group E) has frequent exacerbations despite treatment with LABA + LAMA + ICS. His blood eosinophil count is < 100 cells/uL, but he has chronic bronchitis and an FEV1 < 50%. Which of the following add-on therapies is most appropriate to consider?",
+                options: {
+                    A: "Albuterol",
+                    B: "Azithromycin",
+                    C: "Omalizumab",
+                    D: "Roflumilast",
+                    E: "Theophylline"
+                },
+                correctAnswer: "D",
+                rationale: "If patients treated with LABA+LAMA+ICS still have exacerbations, roflumilast may be considered if FEV1 < 50% and chronic bronchitis is present.",
+                source: "COPD_Treatment_PDF.pdf, Slide 4: \"add roflumilast (FEV1 < 50% and chronic bronchitis)\""
+            },
+
+            // --- Section 5: Asthma Diagnosis and Treatment ---
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO1: Discuss the prevalence of asthma.",
+                fullLO: "LO1: Discuss the prevalence of asthma.",
+                question: "Asthma affects a significant portion of the population. According to 2022 US prevalence data, which demographic group has a higher prevalence of asthma compared to their counterparts?",
+                options: {
+                    A: "Adults > 65 years old compared to young adults",
+                    B: "Adults compared to children",
+                    C: "Females compared to males",
+                    D: "Hispanic compared to Black, Non-Hispanic",
+                    E: "Males compared to females"
+                },
+                correctAnswer: "C",
+                rationale: "In the US (2022), asthma is more prevalent in females (9.7%) than males (6.6%).",
+                source: "Asthma_PDF.pdf, Slide 4: \"More prevalent – Females (9.7% vs. 6.6% males)\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO1: Discuss the prevalence of asthma.",
+                fullLO: "LO1: Discuss the prevalence of asthma.",
+                question: "When reviewing asthma epidemiology in the United States, which racial or ethnic group has the highest prevalence of asthma?",
+                options: {
+                    A: "Asian",
+                    B: "Black, Non-Hispanic",
+                    C: "Hispanic",
+                    D: "Native Americans",
+                    E: "White, Non-Hispanic"
+                },
+                correctAnswer: "D",
+                rationale: "Native Americans have the highest prevalence (12.5%), followed by Black, Non-Hispanic (10.7%).",
+                source: "Asthma_PDF.pdf, Slide 4: \"More prevalent... – Native Americans (12.5%)\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO2: Describe the key points of the pathophysiology of asthma, understanding that most patients have an [eosinophilic inflammatory disease].",
+                fullLO: "LO2: Describe the key points of the pathophysiology of asthma, understanding that most patients with asthma have an eosinophilic inflammatory disease that can usually be controlled, but not cured.",
+                question: "A 12-year-old girl with asthma has a \"T2-high\" endotype. This form of asthma is associated with the release of \"alarmins\" (TSLP, IL-33, IL-25) from damaged epithelium, which activates Innate Lymphoid Cells type 2 (ILC2s) and Th2 cells. Which of the following cytokines are primarily released in this pathway to promote eosinophilic inflammation and IgE production?",
+                options: {
+                    A: "IL-1, IL-6, TNF-alpha",
+                    B: "IL-2, IL-12, IFN-gamma",
+                    C: "IL-4, IL-5, IL-13",
+                    D: "IL-8, IL-17, IL-22",
+                    E: "IL-10, TGF-beta"
+                },
+                correctAnswer: "C",
+                rationale: "The T2-high response involves cytokines IL-4, IL-5, and IL-13. IL-4 increases IgE, IL-5 attracts eosinophils, and IL-13 stimulates mucus/IgE.",
+                source: "Asthma_PDF.pdf, Slide 11: \"– IL-4, IL-5, IL-13... Increase IgE class switching... Promoted eosinophilic inflammation... Goblet cell hyperplasia\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO2: Describe the key points of the pathophysiology of asthma, understanding that most patients have an [eosinophilic inflammatory disease].",
+                fullLO: "LO2: Describe the key points of the pathophysiology of asthma, understanding that most patients with asthma have an eosinophilic inflammatory disease that can usually be controlled, but not cured.",
+                question: "In chronic asthma, ongoing inflammation can lead to irreversible structural changes in the airway, known as airway remodeling. Which of the following is a component of airway remodeling?",
+                options: {
+                    A: "Decreased number of goblet cells",
+                    B: "Decreased vascularity",
+                    C: "Increased fibrosis and smooth muscle thickness",
+                    D: "Loss of basement membrane",
+                    E: "Thinning of the airway wall"
+                },
+                correctAnswer: "C",
+                rationale: "Airway remodeling involves increased fibrosis, increased mucus production, increased smooth muscle thickness, and increased vascularity.",
+                source: "Asthma_PDF.pdf, Slide 10: \"prevent/reduce airway remodeling – Increased fibrosis... – Increased smooth muscle thickness\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO3: Discuss a diagnostic approach to asthma in [various age groups].",
+                fullLO: "LO3: Discuss a diagnostic approach to asthma in infants, children, adolescents, and adults.",
+                question: "A 4-year-old child presents with recurrent wheezing. Because objective pulmonary function testing is difficult in this age group, which of the following is a major criterion in the Asthma Predictive Index (API) that would suggest a high probability of developing asthma?",
+                options: {
+                    A: "Allergic sensitization to milk, eggs, or peanuts",
+                    B: "Eosinophilia (≥ 4%)",
+                    C: "Parental history of asthma",
+                    D: "Wheezing apart from colds",
+                    E: "Physician-diagnosed allergic rhinitis"
+                },
+                correctAnswer: "C",
+                rationale: "Parental history of asthma is a Major Criterion for the Asthma Predictive Index. (Sensitization to foods, eosinophilia, and wheezing apart from colds are Minor criteria).",
+                source: "Asthma_PDF.pdf, Slide 52: \"Major criteria... Parental history of asthma... Minor criteria... Allergic sensitization to foods... ≥4% peripheral blood eosinophils... Wheezing apart from colds\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO3: Discuss a diagnostic approach to asthma in [various age groups].",
+                fullLO: "LO3: Discuss a diagnostic approach to asthma in infants, children, adolescents, and adults.",
+                question: "An 8-year-old child is evaluated for asthma. Spirometry is performed. According to the new ATS/ERS 2021 update, which of the following findings on post-bronchodilator spirometry confirms a positive bronchodilator response?",
+                options: {
+                    A: ">10% increase in FEV1 or FVC relative to predicted",
+                    B: "12% increase in FEV1 and 200 mL increase",
+                    C: "15% increase in PEF",
+                    D: "20% decrease in FEV1 with methacholine",
+                    E: "Normalization of FEV1/FVC ratio"
+                },
+                correctAnswer: "A",
+                rationale: "The new ATS/ERS 2021 criteria for a positive bronchodilator response is a >10% increase in FEV1 or FVC relative to predicted. (The \"Classic\" criteria was 12% and 200mL).",
+                source: "Asthma_PDF.pdf, Slide 23: \"New ATS/ERS 2021 update... >10% increase in FEV1 or FVC relative to predicted\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO4: Give an age-related basic differential diagnosis for wheezing and/or dyspnea that includes asthma.",
+                fullLO: "LO4: Give an age-related basic differential diagnosis for wheezing and/or dyspnea that includes asthma.",
+                question: "A 16-year-old female presents with episodic dyspnea and wheezing that occurs during high-intensity sports. She reports a sensation of throat tightness and difficulty \"getting air in\" (inspiratory stridor) rather than out. Spirometry during an episode shows a truncated inspiratory loop. This presentation is most suggestive of:",
+                options: {
+                    A: "Exercise-Induced Bronchoconstriction (EIB)",
+                    B: "Foreign body aspiration",
+                    C: "Panic disorder",
+                    D: "Vascular ring",
+                    E: "Vocal Cord Dysfunction (VCD)"
+                },
+                correctAnswer: "E",
+                rationale: "VCD presents with episodic dyspnea, inspiratory stridor (paradoxical adduction), and a truncated inspiratory loop on PFT. It is often misdiagnosed as asthma.",
+                source: "Asthma_PDF.pdf, Slide 27: \"Vocal Cord Dysfunction... Episodic dyspnea... Can hear inspiratory... stridor... Truncated inspiratory loop on PFT\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO4: Give an age-related basic differential diagnosis for wheezing and/or dyspnea that includes asthma.",
+                fullLO: "LO4: Give an age-related basic differential diagnosis for wheezing and/or dyspnea that includes asthma.",
+                question: "An infant presents with persistent wheezing and feeding difficulties. A barium swallow is ordered to evaluate for gastroesophageal reflux, but it also identifies an indentation on the esophagus suggestive of a vascular ring. This falls under which category of differential diagnoses for wheezing in infants?",
+                options: {
+                    A: "Aspiration syndromes",
+                    B: "Congenital anatomic abnormalities",
+                    C: "Cystic fibrosis",
+                    D: "Immune deficiency",
+                    E: "Recurrent respiratory infections"
+                },
+                correctAnswer: "B",
+                rationale: "Congenital anatomic abnormalities like vascular rings (which can be seen on barium swallow), tracheomalacia, and TE-fistulas are differentials for wheezing in infants.",
+                source: "Asthma_PDF.pdf, Slides 18 & 53: \"Congenital anatomic abnormalities... Barium swallow. In addition to identifying GE reflux, will indicate some congenital anatomic abnormalities.\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO5: Utilize guidelines such as the GINA guidelines to describe the [classification and management] of asthma severity.",
+                fullLO: "LO5: Utilize guidelines such as the GINA guidelines to describe the classification of asthma severity and formulate an initial management plan for each level of severity.",
+                question: "According to the GINA 2024 guidelines, what is the preferred initial treatment (Track 1) for an adult with symptoms less than 4-5 days a week (Steps 1-2)?",
+                options: {
+                    A: "As-needed low dose ICS-formoterol",
+                    B: "As-needed SABA alone",
+                    C: "Daily low dose ICS plus as-needed SABA",
+                    D: "Daily LTRA (montelukast)",
+                    E: "Daily medium dose ICS"
+                },
+                correctAnswer: "A",
+                rationale: "GINA Track 1 (Preferred) for Steps 1-2 is \"As-needed only low dose ICS-formoterol\". This reduces the risk of exacerbations compared to SABA alone.",
+                source: "Asthma_PDF.pdf, Slide 43: \"TRACK 1: PREFERRED... STEPS 1-2 As-needed-only low dose ICS-formoterol\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO5: Utilize guidelines such as the GINA guidelines to describe the [classification and management] of asthma severity.",
+                fullLO: "LO5: Utilize guidelines such as the GINA guidelines to describe the classification of asthma severity and formulate an initial management plan for each level of severity.",
+                question: "A major paradigm shift in asthma management guidelines (GINA and EPR-4) involves the treatment of mild asthma (Step 1). What is the key recommendation regarding SABA-only therapy?",
+                options: {
+                    A: "It is now the preferred treatment for all patients.",
+                    B: "It is discouraged; ICS-containing treatment is recommended even for mild asthma.",
+                    C: "It should be combined with an oral steroid.",
+                    D: "It should be used only if symptoms occur daily.",
+                    E: "It is safe and effective as monotherapy for most adults."
+                },
+                correctAnswer: "B",
+                rationale: "Guidelines now discourage SABA-only therapy at Step 1 and recommend ICS-containing treatment to reduce risk.",
+                source: "Asthma_PDF.pdf, Slide 44: \"Major paradigm shift: GINA and EPR-4 now discourage SABA-only therapy at Step 1 – Recommending ICS-containing treatment even for mild asthma.\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO6: Describe an approach to outpatient initial evaluation and follow-up, and [home monitoring].",
+                fullLO: "LO6: Describe an approach to outpatient initial evaluation and follow-up, and home monitoring of asthma status.",
+                question: "A 15-year-old patient completes the Asthma Control Test (ACT) during a follow-up visit. The total score is 16. What does this score indicate regarding the patient's asthma control?",
+                options: {
+                    A: "Asthma is well controlled",
+                    B: "Asthma is not well controlled",
+                    C: "The patient has severe persistent asthma",
+                    D: "The patient is in remission",
+                    E: "The score is invalid for this age group"
+                },
+                correctAnswer: "B",
+                rationale: "An ACT score ≤19 suggests the patient’s asthma is not well controlled.",
+                source: "Asthma_PDF.pdf, Slide 26: \"Score ≤19 suggests not well controlled\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO6: Describe an approach to outpatient initial evaluation and follow-up, and [home monitoring].",
+                fullLO: "LO6: Describe an approach to outpatient initial evaluation and follow-up, and home monitoring of asthma status.",
+                question: "A peak expiratory flow rate (PEFR) meter is a device often used in the outpatient management of asthma. What is the primary utility of this device?",
+                options: {
+                    A: "Diagnosing asthma in infants",
+                    B: "Home monitoring of asthma status",
+                    C: "Measuring lung volumes (TLC, RV)",
+                    D: "Replacing formal spirometry in the office",
+                    E: "Testing for allergies"
+                },
+                correctAnswer: "B",
+                rationale: "PEFR is best thought of as a home monitoring tool.",
+                source: "Asthma_PDF.pdf, Page 53: \"Peak expiratory flow rate (PEFR or “peak flow”) measurement is best thought of as a home monitoring tool.\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO7: Know why [spacers] should be used with pressurized metered-dose inhalers.",
+                fullLO: "LO7: Know why spacers should be used with pressurized metered-dose inhalers.",
+                question: "When prescribing a pressurized metered-dose inhaler (pMDI) for a child, a spacer is recommended. What is the primary physiological advantage of using a spacer?",
+                options: {
+                    A: "It increases the speed of the particles.",
+                    B: "It increases the deposition of medication in the mouth.",
+                    C: "It allows for propellant evaporation and decreases particle size/speed, increasing lung deposition.",
+                    D: "It prevents the need for rinsing the mouth after use.",
+                    E: "It eliminates the need for a prescription."
+                },
+                correctAnswer: "C",
+                rationale: "Spacers allow propellant evaporation, decrease particle size and speed, require less coordination, and result in less medication in the mouth and more in the lungs.",
+                source: "Asthma_PDF.pdf, Slide 36: \"Allows for propellant evaporation... Decreases particle size and speed... Less medication deposits in the mouth; more into the lungs\""
+            },
+            {
+                section: "Asthma Diagnosis and Treatment",
+                maskedLO: "LO7: Know why [spacers] should be used with pressurized metered-dose inhalers.",
+                fullLO: "LO7: Know why spacers should be used with pressurized metered-dose inhalers.",
+                question: "A patient is prescribed an inhaled corticosteroid via MDI. To prevent a common local side effect, the patient is advised to use a spacer and to:",
+                options: {
+                    A: "Hold their breath for 30 seconds",
+                    B: "Rinse their mouth with water after use",
+                    C: "Take the medication on an empty stomach",
+                    D: "Use the inhaler only when symptoms are severe",
+                    E: "Use the inhaler while lying down"
+                },
+                correctAnswer: "B",
+                rationale: "Inhaled corticosteroids can cause thrush (oral candidiasis). Rinsing the mouth after use helps prevent this.",
+                source: "Asthma_PDF.pdf, Slide 35: \"Inhaled corticosteroids can cause thrush- rinse mouth after use\""
+            }
+        ];
+
+        // --- Core Logic ---
+        const quizRoot = document.getElementById('quiz-root');
+        const themeSelect = document.getElementById('theme-select');
+        const pinBtn = document.getElementById('pin-btn');
+        const mainHeader = document.getElementById('main-header');
+
+        function initQuiz() {
+            // Render Questions
+            let currentSection = "";
+            let questionCount = 0;
+            
+            quizData.forEach((item, index) => {
+                // Insert Section Header if needed
+                if (item.section !== currentSection) {
+                    currentSection = item.section;
+                    const sectionHeader = document.createElement('h2');
+                    sectionHeader.className = 'section-header';
+                    sectionHeader.textContent = currentSection;
+                    quizRoot.appendChild(sectionHeader);
+                }
+
+                questionCount++;
+
+                // Create Card
+                const card = document.createElement('div');
+                card.className = 'question-card';
+                card.id = `q-card-${index}`;
+
+                // Learning Objective (Masked)
+                const loBox = document.createElement('div');
+                loBox.className = 'lo-box';
+                loBox.id = `lo-${index}`;
+                loBox.textContent = item.maskedLO;
+                card.appendChild(loBox);
+
+                // Question Text
+                const qText = document.createElement('div');
+                qText.className = 'question-text';
+                
+                // Add question text and optional table
+                // Check if the question text already has HTML (e.g. table), if so, insert directly
+                if (item.question.includes('<table')) {
+                    qText.innerHTML = `${questionCount}. ${item.question}`;
+                } else {
+                    qText.textContent = `${questionCount}. ${item.question}`;
+                }
+                
+                card.appendChild(qText);
+
+                // Options Container
+                const optionsGrid = document.createElement('div');
+                optionsGrid.className = 'options-grid';
+
+                for (const [key, value] of Object.entries(item.options)) {
+                    const label = document.createElement('label');
+                    label.className = 'option-label';
+                    
+                    const input = document.createElement('input');
+                    input.type = 'radio';
+                    input.name = `question-${index}`;
+                    input.value = key;
+
+                    const span = document.createElement('span');
+                    span.textContent = `${key}. ${value}`;
+
+                    label.appendChild(input);
+                    label.appendChild(span);
+                    optionsGrid.appendChild(label);
+                }
+                card.appendChild(optionsGrid);
+
+                // Check Button
+                const btn = document.createElement('button');
+                btn.className = 'btn-check';
+                btn.textContent = 'Check Answer';
+                btn.onclick = () => checkAnswer(index);
+                card.appendChild(btn);
+
+                // Feedback Container
+                const feedback = document.createElement('div');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${index}`;
+                card.appendChild(feedback);
+
+                quizRoot.appendChild(card);
+            });
+
+            // Load saved theme
+            const savedTheme = localStorage.getItem('quizTheme') || 'dark';
+            changeTheme(savedTheme);
+            themeSelect.value = savedTheme;
+
+            // Load saved pin state
+            const savedPinState = localStorage.getItem('headerPinned');
+            // Default to true (pinned) if not set or if set to true
+            if (savedPinState === 'false') {
+                toggleHeader(false); 
+            } else {
+                toggleHeader(true);
+            }
+        }
+
+        function checkAnswer(index) {
+            const selected = document.querySelector(`input[name="question-${index}"]:checked`);
+            const feedbackEl = document.getElementById(`feedback-${index}`);
+            const loEl = document.getElementById(`lo-${index}`);
+            const data = quizData[index];
+
+            if (!selected) {
+                alert("Please select an answer.");
+                return;
+            }
+
+            // Reveal LO
+            loEl.textContent = data.fullLO;
+
+            // Generate Feedback HTML
+            const isCorrect = selected.value === data.correctAnswer;
+            
+            let html = `<span class="feedback-header">${isCorrect ? "Correct!" : "Incorrect"}</span>`;
+            if (!isCorrect) {
+                html += `<div>The correct answer is <strong>${data.correctAnswer}</strong>.</div>`;
+            }
+            
+            html += `<div class="rationale"><strong>Rationale:</strong> ${data.rationale}</div>`;
+            html += `<div class="source"><strong>Source:</strong> ${data.source}</div>`;
+
+            feedbackEl.innerHTML = html;
+            feedbackEl.className = `feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+            feedbackEl.style.display = 'block';
+        }
+
+        function changeTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+            localStorage.setItem('quizTheme', themeName);
+        }
+
+        function toggleHeader(forceState) {
+            // Determine current state based on class presence
+            const isCurrentlyPinned = !mainHeader.classList.contains('unpinned');
+            
+            // If forceState is provided (boolean), use it. Otherwise toggle current state.
+            const newState = (typeof forceState === 'boolean') ? forceState : !isCurrentlyPinned;
+
+            if (newState) {
+                // Pin
+                mainHeader.classList.remove('unpinned');
+                pinBtn.classList.add('pin-active');
+                localStorage.setItem('headerPinned', 'true');
+            } else {
+                // Unpin
+                mainHeader.classList.add('unpinned');
+                pinBtn.classList.remove('pin-active');
+                localStorage.setItem('headerPinned', 'false');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', initQuiz);
+
+    </script>
+</body>
+</html>
